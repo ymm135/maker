@@ -37,7 +37,7 @@ Solid Works工程图具有快捷、符合制因规范的特点，软件提供了
 
 <br>
 <div align=center>
-    <img src="../../res/images/鼠标笔势.png" width="65%" height="65%" title="有限状态机" />
+    <img src="../../res/images/鼠标笔势.png" width="65%" height="65%" title="鼠标笔势" />
 </div>
 <div align="center">
     <font face="黑体" color=gray size=3>鼠标笔势</font> 
@@ -79,5 +79,3 @@ CAD设计包含`机械设计`、`室内设计`、`建筑设计`、`平面设计`
 <br>
 
 ![solidworks-detail](../../res/images/solidworks-detail.png)  
-
-## Demo示例  
