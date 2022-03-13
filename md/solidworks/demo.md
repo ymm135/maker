@@ -1,9 +1,28 @@
 # 软件简介及Demo  
 
+## 基础知识  
+
+适应人群:  产品开发、机械设计、绘图员、项目工程师、造型工程师。  
+
+SolidWorks是一套机械设计自动化软件，采用了用户熟悉的 Windows 图形界面，操作简便，易学易用，被广泛应用于机械、汽车和航空等领域 
+
+| 入门 | 进阶 |  精通 |
+| ---- | ---- | ----- | 
+| 零件建模 | 曲面设计 | 运动仿真 | 
+| 装配设计 | 钣金(焊接)设计 | 管道设计 |
+| 工程图设计 | Top-Down | 点击布线设计 | 
+
+
+
+
 ## 学习内容  
 
-![](../../res/images/solidworks-detail.png)  
+CAD设计包含`机械设计`、`室内设计`、`建筑设计`、`平面设计`。    
 
-## 基础知识  
+![design](../../res/images/design.png)  
+
+<br>
+
+![solidworks-detail](../../res/images/solidworks-detail.png)  
 
 ## Demo示例  
