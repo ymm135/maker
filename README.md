@@ -7,6 +7,7 @@
 
 # 机械设计及制作  
 - ## [solidworks 学习笔记](md/solidworks/README.md)  
+- ## [羽毛球发球机制作](md/shuttlecock/README.md)  
 
 # 手工制作
 
