@@ -4,6 +4,7 @@
 <br>
 
 # 电子电路设计及制作
+- ## [树莓派Pico与4B学习]()    
 
 # 机械设计及制作  
 - ## [solidworks 学习笔记](md/solidworks/README.md)  
