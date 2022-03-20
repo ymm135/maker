@@ -4,7 +4,7 @@
 <br>
 
 # 电子电路设计及制作
-- ## [树莓派Pico与4B学习]()    
+- ## [树莓派Pico与4B学习](md/electronic/respi.md)    
 
 # 机械设计及制作  
 - ## [solidworks 学习笔记](md/solidworks/README.md)  
