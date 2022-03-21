@@ -1,6 +1,7 @@
 # 羽毛球发球机
 # DIY 羽毛球发球机  
 - ## 介绍
+### [主要参考资料](http://www.3dwhere.com/models/m2rt2oda8jibc93z) >> [资源文件](res\files\羽毛球机-原始文件.zip)    
 [参考资料](../../res/files/Shuttlecock-project-documentation.pdf)  
 [视频参考](https://www.bilibili.com/video/BV1kq4y1w7kp?spm_id_from=333.999.0.0)  
 
@@ -11,7 +12,7 @@
 该机器使用了许多商业零件，以及手工和增材制造的零件。该机由发射组件和装载组件两个模块组成，可以并行设计和组装。
 组装完成后，进行了一些测试以调整发射轮的旋转。  
 
-该机器具有两个功能: 羽毛球的装载和发射。
+该机器具有两个功能: 羽毛球的装载和发球。
 从插入机器顶部的羽毛球管中抓取羽毛球，羽毛球被机械手臂抓住后，手臂向下移动，羽毛球落到滑道上。滑块在旋转的轮子之间带动羽毛球，羽毛球在轮子间被射出。
 
 - ## 设计
@@ -50,10 +51,30 @@
         <img src="../../res/images/羽毛球发球机控制板2.png" width="60%" height="60%"/>
     </div>
     <br>  
-    > 
+
 
   - ### solidworks 模型设计
-
+  - ### 装载和发球过程  
+   <br>
+    <div align=center>
+        <img src="../../res/images/Feed1.JPG" width="60%" height="60%"/>
+    </div>
+   <br>
+    <div align=center>
+        <img src="../../res/images/Feed2.JPG" width="60%" height="60%"/>
+    </div>
+   <br>
+    <div align=center>
+        <img src="../../res/images/Feed3.JPG" width="60%" height="60%"/>
+    </div>
+   <br>
+    <div align=center>
+        <img src="../../res/images/Feed4.JPG" width="60%" height="60%"/>
+    </div>
+  <br>
+    <div align=center>
+        <img src="../../res/images/Feed5.JPG" width="60%" height="60%"/>
+    </div>   
 - ## 制造和组装
 
 
