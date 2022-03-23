@@ -7,9 +7,9 @@
 
 ## [草图基础](caotu.md)  
 
-## [零件建模](lingjian.md)   
+## [零件建模](lingjian.md)    
 
-## 装配体基础  
+## [装配体基础](zhuangpeiti.md)    
 
 ## 曲面基础  
 
