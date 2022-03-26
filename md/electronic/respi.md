@@ -137,7 +137,16 @@ matrix@ubuntu:~$ sudo dmesg | tail
 
 
 ## 4B 
+- ### [官方文档](https://www.raspberrypi.com/documentation/computers/getting-started.html#setting-up-your-raspberry-pi)  
+
 ### 环境搭建
+
+<br>
+<div align=center>
+    <img src="../../res/images/raspberry-pi-4b.png" width="60%" height="60%" />
+</div>
+
+
 - ### 系统下载及安装  
 [官方下载地址](https://www.raspberrypi.com/software/)   
 
@@ -157,4 +166,61 @@ static domain_name_servers=114.114.114.114
 ```
 
 > VNC需要通过IP连接后，增加别名。  
+
+### 开发环境搭建  
+
+开启`root`远程登陆  `sudo vim /etc/ssh/sshd_config`  
+```
+PermitRootLogin yes
+```
+
+重启ssh服务: `service sshd restart`
+
+在win或macos下载vscode，安装`Remote - SSH`插件，配置树莓派链接  
+```shell
+Host 192.168.0.106  # 树莓派IP 
+HostName 192.168.0.106 # 树莓派IP 
+User root
+```  
+
+<br>
+<div align=center>
+    <img src="../../res/images/树莓派开发环境.png" width="100%" height="100%" />
+</div>
+
+
+> nmap查找树莓派ip地址  
+
+<br>
+<div align=center>
+    <img src="../../res/images/nmap查找树莓派ip地址.png" width="80%" height="100%" />
+</div>
+
+### 命令行模式与GUI模式切换  
+可以通过`sudo raspi-config`选择启动方式  
+
+<br>
+<div align=center>
+    <img src="../../res/images/配置1.png" width="60%" height="100%" />
+</div>
+
+<br>
+<div align=center>
+    <img src="../../res/images/配置2.png" width="60%" height="100%" />
+</div>
+
+<br>
+<div align=center>
+    <img src="../../res/images/配置3.png" width="60%" height="100%" />
+</div>
+
+
+后台执行的操作  
+```
+root@raspberrypi:/home/pi#  sudo raspi-config
+Removed /etc/systemd/system/default.target.
+Created symlink /etc/systemd/system/default.target → /lib/systemd/system/multi-user.target
+```
+
+> 已命令行的方式启动，内存瞬间多了1G，目前剩余3.4G  
 
