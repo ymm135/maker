@@ -6,6 +6,7 @@
     - [尺寸约束](#尺寸约束)
     - [全约束](#全约束)
   - [草图绘制的一般过程](#草图绘制的一般过程)
+  - [草图知识点](#草图知识点)
 
 # 草图基础  
 ## 草图的绘制  
@@ -187,6 +188,23 @@
     <font face="黑体" color=gray size=3>样例2</font> 
 </div>
 
+
+
+## 草图知识点  
+
+- ### 草图中尺寸的分类  
+
+- 智能尺寸 
+- 基准尺寸 
+- 链尺寸 
+
+<br>
+<div align=center>
+    <img src="../../res/images/caotu-尺寸学习.png" width="100%" height="100%"/>
+</div>
+<div align="center">
+    <font face="黑体" color=gray size=3>样例2</font> 
+</div>
 
 
 
