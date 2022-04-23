@@ -51,6 +51,19 @@
 
 - #### 控制原理-脉冲  
 
+<br>
+<div align=center>
+    <img src="../../res/images/Servomotor_Timing_Diagram.svg" width="50%" height="50%" />
+</div>
+
+伺服控制是一种通过向伺服发送 PWM（脉冲宽度调制）信号来控制多种类型的RC/爱好者伺服的方法，这是一系列可变宽度的重复脉冲，其中 `脉冲宽度`（最常见的现代业余伺服）或 `脉冲序列的占空比`（今天不太常见）决定了伺服要达到的位置。PWM 信号可能来自无线电控制接收器到伺服系统或来自常见的微控制器，例如Arduino。
+
+小型业余舵机（通常称为无线电控制或 RC 舵机）通过标准的三线连接进行连接：两根线用于直流电源，一根用于控制，`携带控制脉冲`。
+
+脉冲的参数是`最小脉冲宽度`、`最大脉冲宽度`和`重复率`。给定伺服的旋转约束，将中性定义为旋转中心。不同的舵机对其旋转有不同的限制，但中性位置始终为 1.5 毫秒 (ms) 左右的脉冲宽度。  
+
+
+
 说到舵机的控制信号，一般是脉宽调制（PWM）信号，如下图，直观反映了PWM信号和舵机转动角度的关系，
 你也可以简单的理解为，通过给舵机通电的时间控制，结合角度传感器的反馈信号检测和控制，实现了舵机的精确角度控制。  
 
@@ -161,6 +174,7 @@ from time import sleep
  
 myGPIO = 14
 myCorrection = 0
+# 脉冲最大值 2ms 最小值1ms 中间位置为1.5ms 
 maxPW = (2.0 + myCorrection) / 1000
 minPW = (1.0 - myCorrection) / 1000
  
@@ -201,6 +215,8 @@ while True:
 
 ## 舵机驱动平行爪子  
 
+- ### [树莓派舵机控制](md/electronic/raspberry-gpio-python.md)  
+
 <br>
 <div align=center>
     <img src="../../res/images/平行爪子.png" width="60%" height="90%" />
@@ -216,6 +232,7 @@ servoPIN = 14
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(servoPIN, GPIO.OUT)
 
+# 50Hz 0.02s 也就是20ms 一个脉冲 
 p = GPIO.PWM(servoPIN, 50) # GPIO 17 for PWM with 50Hz
 p.start(2.5) # Initialization
 try:
@@ -244,8 +261,117 @@ except KeyboardInterrupt:
 该示例是通过pwm控制舵机的，和之前使用`from gpiozero import Servo`不一样的
 
 控制平行爪子代码: 
-```
+rotation.py
+```python
+import RPi.GPIO as GPIO
+import time
+
+# 这个类表示单个的SG90模块
+class Rotation:
+    frequency = 50  # 脉冲频率(Hz)
+    delta_theta = 0.2  # 步进转动间隔(度)
+    min_delay = 0.0006  # 转动delta_theta的理论耗时(s)
+    max_delay = 0.4  # 从0转到180的耗时(s)
+
+    def __init__(self, channel, min_theta, max_theta, init_theta=0):
+        '''
+        构造函数：
+            channel: 舵机信号线所连接的树莓派引脚编号（BCM编码）
+            min_theta: 舵机转动的最小角度
+            max_theta: 舵机转动的最大角度
+            init_theta: 舵机的初始角度
+        '''
+        self.channel = channel
+        if(min_theta < 0 or min_theta > 180):
+            self.min_theta = 0
+        else:
+            self.min_theta = min_theta
+
+        if(max_theta < 0 or max_theta > 180):
+            self.max_theta = 180
+        else:
+            self.max_theta = max_theta
+
+        if(init_theta < min_theta or init_theta > max_theta):
+            self.init_theta = (self.min_theta+self.max_theta)/2
+        else:
+            self.init_theta = init_theta  # 初始角度
+
+        # 计算最小角度、最大角度的占空比
+        self.min_dutycycle = 2.5+self.min_theta*10/180
+        self.max_dutycycle = 2.5+self.max_theta*10/180
+
+    def setup(self):
+        '''
+        初始化
+        '''
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        GPIO.setup(self.channel, GPIO.OUT)
+        self.pwm = GPIO.PWM(self.channel, Rotation.frequency)  # PWM
+        self.dutycycle = 2.5 + self.init_theta*10/180  # 脉冲占空比的初始值
+        self.pwm.start(self.dutycycle)  # 让舵机转到初始位置
+        time.sleep(Rotation.max_delay)
+
+    def positiveRotation(self):
+        '''
+        正相步进转动，每次调用只转动delta_theta度
+        '''
+        self.dutycycle = self.dutycycle + Rotation.delta_theta*10/180
+        if self.dutycycle > self.max_dutycycle:
+            self.dutycycle = self.max_dutycycle
+        self.pwm.ChangeDutyCycle(self.dutycycle)
+        time.sleep(Rotation.min_delay)
+
+    def reverseRotation(self):
+        '''
+        反相转动，每次调用只转动delta_theta度
+        '''
+        self.dutycycle = self.dutycycle-Rotation.delta_theta*10/180
+        if self.dutycycle < self.min_dutycycle:
+            self.dutycycle = self.min_dutycycle
+        self.pwm.ChangeDutyCycle(self.dutycycle)
+        time.sleep(Rotation.min_delay)
+
+    def specifyRotation(self, theta):
+        '''
+        转动到指定的角度
+        '''
+        if(theta < 0 or theta > 180):
+            return
+        self.dutycycle = 2.5+theta*10/180
+        self.pwm.ChangeDutyCycle(self.dutycycle)
+        time.sleep(Rotation.max_delay)
+
+    def cleanup(self):
+        self.pwm.stop()
+        time.sleep(Rotation.min_delay)
+        GPIO.cleanup()
 
 ```
 
+ServoCtl.py 
+```python
+import time
+from rotation import Rotation
+
+rot = Rotation(14, 0, 180)
+
+rot.setup()
+time.sleep(2)
+
+for i in range(0,600):
+    rot.positiveRotation()
+
+time.sleep(2)
+for i in range(0,450):
+    rot.reverseRotation()
+time.sleep(5)
+rot.cleanup()
+```
+
+- #### 在初始化或者控制间隙，舵机为什么会抖动？  
+
+
+- #### 如果舵机在转动的过程中，遇到大阻力，舵机如何处理？  
 
