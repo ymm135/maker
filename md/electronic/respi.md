@@ -134,10 +134,30 @@ matrix@ubuntu:~$ sudo dmesg | tail
 - #### HelloWorld   
 按住`BOOTSEL`按键，切换到`USB Mass Storage Mode`模式。  
 
-
+------
 
 ## 4B 
 - ### [官方文档](https://www.raspberrypi.com/documentation/computers/getting-started.html#setting-up-your-raspberry-pi)  
+- ### [BCM2711](https://www.raspberrypi.com/documentation/computers/processors.html#bcm2711)    
+
+Processor: Quad-core [Cortex-A72](https://en.wikipedia.org/wiki/ARM_Cortex-A72) (ARM v8) 64-bit SoC @ 1.5 GHz.
+
+Memory: Accesses up to 8GB LPDDR4-2400 SDRAM (depending on model)
+
+Caches: 32 KB data + 48 KB instruction L1 cache per core. 1MB L2 cache.
+
+Multimedia: H.265 (4Kp60 decode); H.264 (1080p60 decode, 1080p30 encode); OpenGL ES, 3.0 graphics
+
+I/O: PCIe bus, onboard Ethernet port, 2 × DSI ports (only one exposed on Raspberry Pi 4B), 2 × CSI ports (only one exposed on Raspberry Pi 4B), up to 6 × I2C, up to 6 × UART (muxed with I2C), up to 6 × SPI (only five exposed on Raspberry Pi 4B), dual HDMI video output, composite video output.
+
+The datasheet for the [BCM2711](https://datasheets.raspberrypi.com/bcm2711/bcm2711-peripherals.pdf) contains further details.  
+
+- ### [PWM](https://datasheets.raspberrypi.com/bcm2711/bcm2711-peripherals.pdf)  
+
+<br>
+<div align=center>
+    <img src="../../res/images/raspi4-pwm.PNG" width="80%" height="80%" />
+</div>
 
 ### 环境搭建
 
@@ -224,3 +244,10 @@ Created symlink /etc/systemd/system/default.target → /lib/systemd/system/multi
 
 > 已命令行的方式启动，内存瞬间多了1G，目前剩余3.4G  
 
+
+## C/C++ SDK  
+- [IntroductoryProjects](https://www.cs.odu.edu/~aelmesal/IntroductoryProjects.pdf)  
+
+- [GPIO开发](https://elinux.org/RPi_GPIO_Code_Samples)  
+
+## [树莓派舵机控制](../../md/electronic/raspberry-gpio-python.md)  

@@ -215,7 +215,7 @@ while True:
 
 ## 舵机驱动平行爪子  
 
-- ### [树莓派舵机控制](md/electronic/raspberry-gpio-python.md)  
+- ### [树莓派舵机控制](../../md/electronic/raspberry-gpio-python.md)  
 
 <br>
 <div align=center>
