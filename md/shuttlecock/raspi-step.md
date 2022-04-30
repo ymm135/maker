@@ -38,6 +38,20 @@ DM542是本公司专门针对用户用量较大，同时要求性价比较高的
 | 绝缘强度	 | 常温常压下500V/分钟。| 
 | 重   量   | 约200克。 | 
 
+## TTL 电平转换  
+晶体管－晶体管逻辑 Transistor-Transistor Logic，缩写为TTL，是市面上较为常见且应用广泛的一种逻辑门数字集成电路，由电阻器和晶体管而组成。TTL最早是由德州仪器所开发出来的，现虽有多家厂商制作，但编号命名还是以德州仪器所公布的资料为主。其中最常见的为74系列。  
+
+与TTL分庭抗礼的是CMOS，旧时两者相比较TTL主要是速度快，CMOS则是速度慢，但省电、成本比TTL低。随着CMOS技术的进步，其反应速度已经超越TTL。而且CMOS内部不具有制作麻烦的电阻，所以TTL可说几乎没有发展。目前TTL主要应用于教育或是较简单的数字电路。  
+
+TTL最主要是由N组电阻、晶体管、二极管构成的偏置电路所组合出来，在线性放大器的角度来看就是数个CE（共发射极）电路或是CC（共集电极）电路所组成。当然这只是比喻并非实际，毕竟在数字逻辑的世界就是只有0跟1，也就是关或开。
+
+本模块可以应用于不同电平的单片机或者模块之间的通信控制，在使用过程中我们只需要提供对应的基准电源后，该模
+块将相当于一根2端不同电平的导线，在双工通信中需要对方向端口进行选择配置，单向通信默认由A区到B区的控制
+方向，默认不需要进行控制和连接。在单片机直接的控制连接应用相当广泛，具备宽电压转换范围。  
+
+
+
+
 
 #### 驱动器功能说明
 - #### 信号接口
@@ -60,6 +74,13 @@ A＋和 A－接步进电机A相绕组的正负端；B＋和B－接步进电机B�
 42步进电机接线图  黑线A+, 绿线A-，，红线B+，蓝线B-  
 
 ### DM542 与 树莓派接线 
+
+
+<br>
+<div align=center>
+    <img src="../../res/images/dm542-step.png" width="80%" height="80%" />
+</div>  
+
 
 ## 控制代码 
 
@@ -176,8 +197,9 @@ L298N接口功能图解如下：
 </div>  
 
 
-## wiringPi 
-
+## [wiringPi](https://github.com/WiringPi/WiringPi)   
+[github源码](https://github.com/WiringPi/WiringPi)  
+  
 wiringPi updated to 2.52 for the Raspberry Pi 4B
 Posted on June 24, 2019 by Gordon
 Just a quick post to let you know that you’ll need a new wiringPi for the Raspberry Pi 4B.
