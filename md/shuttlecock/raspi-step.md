@@ -61,6 +61,82 @@ A＋和 A－接步进电机A相绕组的正负端；B＋和B－接步进电机B�
 
 ### DM542 与 树莓派接线 
 
+## 控制代码 
+
+[wiringPi配置](#wiringPi)  
+
+```c
+// stepmotor.cpp
+#include <stdio.h>
+#include <wiringPi.h>
+
+// BCM编码
+const int pinPUL = 26;  // 驱动器PUL+
+const int pinDIR = 19;  // 驱动器DIR+
+const int pinTRAN = 21; // 电平转换模块DIR (TRAN是Transform缩写)
+
+// 初始化
+int setup() {
+    // BCM编码
+    // 如果使用其他编码方式，上面的pinPUL和pinDIR也需要相应修改
+    if (wiringPiSetupGpio() != 0) {
+        printf("Wiringpi setup failed\n");
+        return 0;
+    }
+
+    pinMode(pinPUL, OUTPUT);
+    pinMode(pinDIR, OUTPUT);
+    pinMode(pinTRAN, OUTPUT);
+    
+    // 电平转换模块DIR端口置低电平，转换方向为 B==>A
+    digitalWrite(pinTRAN, LOW);
+    
+    return 1;
+}
+
+// 顺时针转动(这里是假设，需要自行验证)
+void CW() {
+    digitalWrite(pinDIR, LOW);
+}
+
+// 逆时针转动
+void CCW() {
+    digitalWrite(pinDIR, HIGH);
+}
+
+// 发射一次脉冲
+// @param: delayMicroS (微秒)
+//    可以控制脉冲频率，进而控制电机转速
+//    参数值越大，每两次脉冲之间的延时越长，脉冲频率越低，转速越慢
+//    参数值越小，转速越快
+// 但是！尽量不要小于60
+void pulseOnce(int delayMicroS) {
+    digitalWrite(pinPUL, HIGH);
+    delayMicroseconds(delayMicroS);
+    digitalWrite(pinPUL, LOW);
+    delayMicroseconds(delayMicroS);
+}
+
+// 发射count次脉冲
+void pulse(int count, int delayMicroS) {
+    for (int i = 0; i < count; ++i) {
+        pulseOnce(delayMicroS);
+    }
+}
+
+
+int main() {
+    if (!setup()) {
+        return 1;
+    }
+
+    // 设置为顺时针转动
+    CW();
+
+    // 转5圈
+    pulse(1600 * 5, 200);
+}
+```
 
 ### [L298N](https://www.sparkfun.com/datasheets/Robotics/L298_H_Bridge.pdf)     
 
@@ -96,5 +172,103 @@ L298N接口功能图解如下：
 
 <br>
 <div align=center>
-    <img src="../../res/images/L298N-Ctrl.jpeg" width="60%" height="60%" />
+    <img src="../../res/images/L298N-Ctrl.jpeg" width="80%" height="80%" />
 </div>  
+
+
+## wiringPi 
+
+wiringPi updated to 2.52 for the Raspberry Pi 4B
+Posted on June 24, 2019 by Gordon
+Just a quick post to let you know that you’ll need a new wiringPi for the Raspberry Pi 4B.
+
+To upgrade:
+```
+cd /tmp
+wget https://project-downloads.drogon.net/wiringpi-latest.deb
+sudo dpkg -i wiringpi-latest.deb
+```
+
+Check with:
+```
+gpio -v
+```
+
+and make sure it’s version 2.52. I’ll push the updated sources shortly.
+
+It will hopefully be part of the official release soon, but for now this will do.
+
+vscode 调试配置  `-lwiringPi`  
+
+```json
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "c_build",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-lwiringPi"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "c编译任务"
+        }
+    ]
+}
+```
+
+launch.json 
+
+```json
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) 启动",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "将反汇编风格设置为 Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "c_build"
+        }
+
+    ]
+}
+```
