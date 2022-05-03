@@ -250,4 +250,59 @@ Created symlink /etc/systemd/system/default.target → /lib/systemd/system/multi
 
 - [GPIO开发](https://elinux.org/RPi_GPIO_Code_Samples)  
 
+- ### wiringPi PWM控制  
+
+pin脚定义 
+
+<br>
+<div align=center>
+    <img src="../../res/images/raspi4-pin-code.png" width="80%" height="80%" />
+</div>  
+
+> wiringPiSetup wiringPi 编码  
+> wiringPiSetupGpio bcm 编码
+
+```c 
+/*
+ Change the Intensity of LED using PWM on Raspberry Pi
+ http://www.electronicwings.com
+ */
+
+#include <wiringPi.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+const int PWM_pin = 12; /* GPIO 26 as per WiringPi, GPIO12 as per BCM */
+
+int main(void)
+{
+  int intensity;
+
+  // if (wiringPiSetup() == -1)   // wiringPi 编码
+  if (wiringPiSetupGpio() == -1)  // bcm 编码
+    exit(1);
+
+  pinMode(PWM_pin, PWM_OUTPUT); /* set PWM pin as output */
+
+  while (1)
+  {
+
+    for (intensity = 0; intensity < 1024; ++intensity)  // 每1代表百分之1
+    {
+      pwmWrite(PWM_pin, intensity); /* provide PWM value for duty cycle */
+      delay(1);
+    }
+    delay(1);
+
+    for (intensity = 1023; intensity >= 0; --intensity)
+    {
+      pwmWrite(PWM_pin, intensity);
+      delay(1);
+    }
+    delay(1);
+  }
+}
+```
+
 ## [树莓派舵机控制](../../md/electronic/raspberry-gpio-python.md)  

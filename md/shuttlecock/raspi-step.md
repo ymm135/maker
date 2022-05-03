@@ -1,5 +1,25 @@
 # 树莓派驱动步进电机
 
+## 原理  
+[参考文章](https://www.moons.com.cn/article/cn-techschool-stepmotor-00006-step-motor-basics)    
+  步进电机是将`电脉冲信号`转变为`角位移或线位移`的开环控制元步进电机件，通过控制施加在电机线圈上的电脉冲`顺序`、`频率`和`数量`，可以实现对步进电机的`转向`、`速度`和`旋转角度`的控制。配合以直线运动执行机构或齿轮箱装置，更可以实现更加复杂、精密的线性运动控制要求。步进电机一般由前后端盖、轴承、中心轴、转子铁芯、定子铁芯、定子组件、波纹垫圈、螺钉等部分构成，步进电机也叫步进器，它利用电磁学原理，将电能转换为机械能，是由缠绕在电机定子齿槽上的线圈驱动的。通常情况下，一根绕成圈状的金属丝叫做螺线管，而在电机中，绕在定子齿槽上的金属丝则叫做绕组、线圈、或相。  
+
+<br>
+<div align=center>
+    <img src="../../res/images/stepper-0.png" width="80%" height="80%" />
+</div>
+
+<br>
+<div align=center>
+    <img src="../../res/images/stepper-1.png" width="100%" height="100%" />
+</div>
+
+<br>
+<div align=center>
+    <img src="../../res/images/stepper-2.png" width="100%" height="100%" />
+</div>
+
+
 ## 步进电机丝杆 
 
 <br>
@@ -158,6 +178,12 @@ int main() {
     pulse(1600 * 5, 200);
 }
 ```
+
+控制电机实验时pwm参数:  
+<br>
+<div align=center>
+    <img src="../../res/images/DSOBMP0013.bmp" width="80%" height="80%" />
+</div>
 
 ### [L298N](https://www.sparkfun.com/datasheets/Robotics/L298_H_Bridge.pdf)     
 

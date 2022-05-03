@@ -85,7 +85,59 @@
   - ### [树莓派驱动舵机](raspi-servo.md)  
   - ### [树莓派驱动步进电机](raspi-step.md)
   - ### 机械爪子夹球代码   
-  - ### 取球代码
+  
+  
+  <br>
+  <div align=center>
+      <img src="../../res/images/jiazi-servo.JPG" width="60%" height="60%"/>
+  </div>  
+
+```
+/*
+ Change the Intensity of LED using PWM on Raspberry Pi
+ http://www.electronicwings.com
+ */
+
+#include <wiringPi.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+const int PWM_pin = 12; /* GPIO 26 as per WiringPi, GPIO12 as per BCM */
+
+void servo_wait(int time) {
+  pwmWrite(PWM_pin, 422); // 1500us  中点
+  delay(time);
+}
+
+int main(void)
+{
+  int intensity;
+
+  if (wiringPiSetupGpio() == -1) // bcm 编码
+    exit(1);
+
+  pinMode(PWM_pin, PWM_OUTPUT); /* set PWM pin as output */
+  pwmSetMode(PWM_MODE_MS);
+
+  // divide down clock 分频时钟
+  pwmSetClock(192);
+  pwmSetRange(1000);     // 每个数值3.55us 
+
+  int delay_period = 1600;
+  int wait_time = 1000;
+
+  pwmWrite(PWM_pin, 450); // 1597us
+  pwmWrite(PWM_pin, 250); // 887us
+
+  return 1;
+}
+```
+
+
+  - ### 取球代码  
+  
+
   - ### 送球装置代码  
   目前使用舵机是360°转动的舵机，需要之前往返运动。  
 
@@ -95,6 +147,73 @@
       <img src="../../res/images/360-servo.JPG" width="60%" height="60%"/>
   </div>
 
+  从图可以看出500us~1500us 之间顺时针转动，1500us~2500us之间逆时针转动，不同脉冲宽度，转动速度不一样。  
+
+  <br>
+  <div align=center>
+      <img src="../../res/images/wirinfPi-pwm-setting.png" width="100%" height="100%"/>
+  </div>
+
+  需要设置pwm时钟，与脉冲宽度有关系，从示波器中可以看出: 
+
+
+  <br>
+  顺时针转动 `888us`:  
+  <div align=center>
+      <img src="../../res/images/DSOBMP0010.bmp" width="100%" height="100%"/>
+  </div>
+
+  <br>
+  逆时针转动 `1780us`:  
+  <div align=center>
+      <img src="../../res/images/DSOBMP0011.bmp" width="100%" height="100%"/>
+  </div>
+
+```c
+#include <wiringPi.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+const int PWM_pin = 12; /* GPIO 26 as per WiringPi, GPIO12 as per BCM */
+
+void servo_wait(int time) {
+  pwmWrite(PWM_pin, 422); // 1500us  中点
+  delay(time);
+}
+
+int main(void)
+{
+  int intensity;
+
+  if (wiringPiSetupGpio() == -1) // bcm 编码
+    exit(1);
+
+  pinMode(PWM_pin, PWM_OUTPUT); /* set PWM pin as output */
+  pwmSetMode(PWM_MODE_MS);
+
+  // divide down clock 分频时钟
+  pwmSetClock(192);
+  pwmSetRange(1000);     // 每个数值3.55us 
+
+  int delay_period = 1600;
+  int wait_time = 1000;
+
+  pwmWrite(PWM_pin, 140); // 500us
+  // pwmWrite(PWM_pin, 282); // 1000us
+  
+  delay(delay_period);
+  
+  servo_wait(wait_time);
+
+  pwmWrite(PWM_pin, 564); // 2000us
+  delay(delay_period);
+
+  servo_wait(wait_time);
+
+  return 1;
+}
+```
   
 
 - ## 成果展示  
