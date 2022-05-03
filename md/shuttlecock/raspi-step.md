@@ -199,7 +199,7 @@ L298N接口功能图解如下：
 
 ## [wiringPi](https://github.com/WiringPi/WiringPi)   
 [github源码](https://github.com/WiringPi/WiringPi)  
-  
+
 wiringPi updated to 2.52 for the Raspberry Pi 4B
 Posted on June 24, 2019 by Gordon
 Just a quick post to let you know that you’ll need a new wiringPi for the Raspberry Pi 4B.
@@ -292,5 +292,27 @@ launch.json
         }
 
     ]
+}
+```
+
+源码路径添加`/root/work/WiringPi-master/**`: 
+.vscode/c_cpp_properties.json  
+```json
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/root/work/WiringPi-master/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-arm"
+        }
+    ],
+    "version": 4
 }
 ```

@@ -83,6 +83,19 @@
 
 - ## 软件设计
   - ### [树莓派驱动舵机](raspi-servo.md)  
-  - ### [树莓派驱动步进电机](raspi-step.md) 
+  - ### [树莓派驱动步进电机](raspi-step.md)
+  - ### 机械爪子夹球代码   
+  - ### 取球代码
+  - ### 送球装置代码  
+  目前使用舵机是360°转动的舵机，需要之前往返运动。  
+
+
+ <br>
+  <div align=center>
+      <img src="../../res/images/360-servo.JPG" width="60%" height="60%"/>
+  </div>
+
+  
+
 - ## 成果展示  
 
