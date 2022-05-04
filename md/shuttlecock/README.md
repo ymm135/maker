@@ -93,11 +93,6 @@
   </div>  
 
 ```
-/*
- Change the Intensity of LED using PWM on Raspberry Pi
- http://www.electronicwings.com
- */
-
 #include <wiringPi.h>
 
 #include <stdio.h>

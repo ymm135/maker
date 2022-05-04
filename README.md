@@ -6,6 +6,7 @@
 # 电子电路设计及制作
 - ## [电子元器件基础知识](md/electronic/base.md) 
 - ## [电子元器件与实验](md/electronic/base-2.md)  
+- ## [电子仪器的使用](md/electronic/instrumentation.md)  
 - ## [示波器使用](md/electronic/digital-storage.md)   
 - ## [树莓派Pico与4B学习](md/electronic/respi.md)    
 

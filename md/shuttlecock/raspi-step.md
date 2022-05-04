@@ -11,7 +11,17 @@
 
 <br>
 <div align=center>
+    <img src="../../res/images/stepper-3.png" width="100%" height="100%" />
+</div>
+
+<br>
+<div align=center>
     <img src="../../res/images/stepper-1.png" width="100%" height="100%" />
+</div>
+
+> 两相是啥意思？ 
+<div align=center>
+    <img src="../../res/images/三相和两相电.png" width="80%" height="80%" />
 </div>
 
 <br>
@@ -29,7 +39,8 @@
 
 
 ### 步进电机控制器  
-
+[DM542用户手册](https://kitaez-cnc.com/f/dm542.pdf)  
+[DM542离线用户手册](../../res/files/dm542-man.pdf)  
 [淘宝商品及接线视频](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.4cac2e8dXsdfZY&id=533222502094&_u=nv6cksvcdc3)  
 
 DM542是本公司专门针对用户用量较大，同时要求性价比较高的客户应用，对于电机存在有震动，要求噪音又小的用户的首选  
@@ -70,9 +81,6 @@ TTL最主要是由N组电阻、晶体管、二极管构成的偏置电路所组�
 方向，默认不需要进行控制和连接。在单片机直接的控制连接应用相当广泛，具备宽电压转换范围。  
 
 
-
-
-
 #### 驱动器功能说明
 - #### 信号接口
 PUL＋和 PUL－为控制脉冲信号正端和负端；DIR＋和DIR－为方向信号正端和负端；ENA＋和 ENA－为使能信号的正端和负端。24V需串2K电阻
@@ -95,12 +103,21 @@ A＋和 A－接步进电机A相绕组的正负端；B＋和B－接步进电机B�
 
 ### DM542 与 树莓派接线 
 
-
 <br>
 <div align=center>
     <img src="../../res/images/dm542-step.png" width="80%" height="80%" />
 </div>  
 
+用户手册中解析及说明:  
+<br>
+<div align=center>
+    <img src="../../res/images/dm542-1.png" width="80%" height="80%" />
+</div>  
+
+<br>
+<div align=center>
+    <img src="../../res/images/dm542-2.png" width="80%" height="80%" />
+</div>  
 
 ## 控制代码 
 
@@ -179,11 +196,36 @@ int main() {
 }
 ```
 
-控制电机实验时pwm参数:  
+控制电机实验时PLU+参数:  
 <br>
 <div align=center>
     <img src="../../res/images/DSOBMP0013.bmp" width="80%" height="80%" />
 </div>
+
+<br>
+A+电压及脉冲图:
+<div align=center>
+    <img src="../../res/images/DSOBMP0014.bmp" width="80%" height="80%" />
+</div>
+
+<br>
+A-电压及脉冲图:
+<div align=center>
+    <img src="../../res/images/DSOBMP0015.bmp" width="80%" height="80%" />
+</div>
+
+<br>
+B+电压及脉冲图:
+<div align=center>
+    <img src="../../res/images/DSOBMP0016.bmp" width="80%" height="80%" />
+</div>
+
+
+B-电压及脉冲图:
+<div align=center>
+    <img src="../../res/images/DSOBMP0017.bmp" width="80%" height="80%" />
+</div>
+
 
 ### [L298N](https://www.sparkfun.com/datasheets/Robotics/L298_H_Bridge.pdf)     
 
