@@ -305,4 +305,8 @@ int main(void)
 }
 ```
 
-## [树莓派舵机控制](../../md/electronic/raspberry-gpio-python.md)  
+## 树莓派使用 
+- ### [树莓派GPIO控制](../../md/electronic/raspberry-gpio-python.md)  
+- ### [树莓派舵机控制](../../md/shuttlecock/raspi-servo.md)  
+- ### [树莓派步进电机的控制](../../md/shuttlecock/raspi-step.md)  
+
