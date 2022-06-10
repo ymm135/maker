@@ -183,6 +183,15 @@ static ip_address=192.168.0.106/24
 static routers=192.168.0.1
 #DNS 
 static domain_name_servers=114.114.114.114
+
+#设置以太网卡静态IP
+interface eth0
+#IP地址 
+static ip_address=192.168.0.206/24
+#网关 
+static routers=192.168.0.1
+#DNS 
+static domain_name_servers=114.114.114.114
 ```
 
 > VNC需要通过IP连接后，增加别名。  
